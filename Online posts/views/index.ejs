@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Онлайн пост</title>
+</head>
+<body>
+    <header>
+        <a href="/"><h1>Online Posts</h1></a>
+        <nav>
+            <a href="/user/profile">Профиль</a>
+        </nav>
+    </header>
+        <div class="">
+            <h1>Последние посты</h1>
+            <p>Делитесь своими идеями здесь</p>
+        </div>
+    
+        <% if (posts.length > 0) { %>
+            <div class="">
+                <% posts.forEach(post => { %>
+                    <div class="card">
+                        <div>
+                            <h2>
+                                <a href="/post/<%= post.id %>">
+                                    <%= post.title %>
+                                </a>
+                            </h2>
+                            <% if (user && user.id === post.user_id) { %>
+                                <div >
+                                    <a href="/post/<%= post.id %>/edit" class="btn">Редакт.</a>
+                                    <form method="POST" action="/post/<%= post.id %>/delete" >
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Удалить пост?')">Удалить</button>
+                                    </form>
+                                </div>
+                            <% } %>
+                        </div>
+                        
+                        <% if (post.imageURL) { %>
+                            <img src="<%= post.imageURL %>" alt="<%= post.title %>">
+                        <% } %>
+                        
+                        <p>
+                            <%= post.description.length > 150 ? post.description.substring(0, 150) + '...' : post.description %>
+                        </p>
+                        
+                        <div>
+                            <div>
+                                <img src="<%= post.User.avatarURL || '/default-avatar.png' %>" alt="<%= post.User.username %>" >
+                                <span><%= post.User.username %></span>
+                            </div>
+                            <div >
+                                <span> <%= post.view_count %></span>
+                                <span> <%= post.Comments ? post.Comments.length : 0 %></span>
+                                <span><%= new Date(post.created_at).toLocaleDateString('ru-RU') %></span>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <div class="card text-center">
+                <h3>Пока нет постов</h3>
+                <p>Будьте первым, кто поделится своим постом!</p>
+                <% if (user) { %>
+                    <a href="/post/create" class="btn btn-primary">Создать первый пост</a>
+                <% } else { %>
+                    <a href="/auth/register" class="btn btn-primary">Зарегистрироваться</a>
+                <% } %>
+            </div>
+        <% } %>
+</body>
+</html>

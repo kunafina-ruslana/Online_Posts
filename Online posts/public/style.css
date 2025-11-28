@@ -1,0 +1,146 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff;
+    color: #333333;
+}
+
+.container {
+    max-width: 840px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.block {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.top{
+    margin-top: 50px;
+}
+
+.profile_block_name {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.name {
+    font-weight: bold;
+    font-size: 32px;
+    color: #1976d2;
+    margin-bottom: 10px;
+}
+
+.list_btn {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    background: #1976d2;
+    font-size: 16px;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background 0.3s;
+    border: none;
+}
+
+.btn:hover {
+    background: #1565c0;
+}
+
+h2,
+h3,
+h4 {
+    font-weight: bold;
+    font-size: 24px;
+    color: #1976d2;
+    margin-bottom: 10px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border: 1px solid #e3f2fd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: #f8fdff;
+}
+
+.btn_edit {
+    background: #42a5f5 !important;
+}
+
+.btn_delete {
+    background: #f44336 !important;
+}
+
+.btn_delete:hover {
+    background: #d32f2f !important;
+}
+
+.btn_edit:hover {
+    background: #1e88e5 !important;
+}
+
+span {
+    background: #e3f2fd;
+    padding: 3px 8px;
+    border-radius: 12px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    margin-bottom: 5px;
+}
+
+textarea {
+    max-width: 400px;
+    width: 400px;
+    max-height: 85px;
+}
+
+.link {
+    text-align: center;
+    margin-top: 15px;
+}
+
+
+
+
+
+header{
+    margin: 25px 15vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+section{
+    padding: 25px 15vw;
+}
+img{
+    width: 840px;
+}

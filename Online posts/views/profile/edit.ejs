@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div style="max-width: 600px; margin: 0 auto;">
+            <div class="card">
+                <h2 style="color: #1976d2;">Редактирование профиля</h2>
+                
+                <form method="POST" action="/user/profile/edit">
+                    <div class="form-group">
+                        <label for="username">Имя пользователя:</label>
+                        <input type="text" id="username" name="username" value="<%= user.username %>" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="telephone">Телефон:</label>
+                        <input type="tel" id="telephone" name="telephone" value="<%= user.telephone || '' %>">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" value="<%= user.email %>" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="avatarURL">URL аватара:</label>
+                        <input type="url" id="avatarURL" name="avatarURL" value="<%= user.avatarURL || '' %>" placeholder="https://example.com/avatar.jpg">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="biography">О себе:</label>
+                        <textarea id="biography" name="biography" rows="4"><%= user.biography || '' %></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">Сохранить изменения</button>
+                    <a href="/user/profile" class="btn" style="background: #757575; margin-left: 1rem;">Отмена</a>
+                </form>
+                
+                <hr style="margin: 2rem 0; border: none; border-top: 1px solid #e0e0e0;">
+                
+                <h3 style="color: #1976d2;">Смена пароля</h3>
+                <form method="POST" action="/user/profile/password">
+                    <div class="form-group">
+                        <label for="currentPassword">Текущий пароль:</label>
+                        <input type="password" id="currentPassword" name="currentPassword" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="newPassword">Новый пароль:</label>
+                        <input type="password" id="newPassword" name="newPassword" required minlength="6">
+                    </div>
+                    
+                    <button type="submit" class="btn">Сменить пароль</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

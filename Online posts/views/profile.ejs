@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Онлайн пост</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="profile_block_name block">
+            <p class="name">
+                <%= user.username %>
+            </p>
+            <% if (user.biography) { %>
+                <p>
+                    <%= user.biography %>
+                </p>
+                <% } %>
+                    <p>
+                        Зарегистрирован: <%= new Date(user.created_at).toLocaleDateString('ru-RU') %>
+                    </p>
+        </div>
+        <div class="list_btn">
+            <a class="btn" href="/user/profile/edit">Редактировать профиль</a>
+            <a class="btn" href="/post/create">Создать пост</a>
+        </div>
+        <div class="block ">
+            <h3>Мои посты</h3>
+            <% if (user.Posts && user.Posts.length> 0) { %>
+                <div class="list">
+                    <% user.Posts.forEach(post=> { %>
+                        <div class="card">
+                            <div>
+                                <h4>
+                                    <a href="/post/<%= post.id %>">
+                                        <%= post.title %>
+                                    </a>
+                                </h4>
+                                <div style="display: flex; gap: 10px; align-items: flex-end;">
+                                    <a class="btn btn_edit" href="/post/<%= post.id %>/edit">Редактировать</a>
+                                    <form method="POST" action="/post/<%= post.id %>/delete">
+                                        <button class="btn btn_delete" type="submit" onclick="return confirm('Удалить пост?')">Удалить</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <p>
+                                <%= post.description.length> 100 ? post.description.substring(0, 100) + '...' :
+                                    post.description %>
+                            </p>
+                            <div style="display: flex; gap: 10px;">
+                                <span>Просмотры: <%= post.view_count %></span>
+                                <span>
+                                    <%= new Date(post.created_at).toLocaleDateString('ru-RU') %>
+                                </span>
+                                <span>
+                                    <%= post.is_published ? 'Опубликован' : 'Черновик' %>
+                                </span>
+                            </div>
+                        </div>
+                        <% }) %>
+                </div>
+                <% } else { %>
+                    <div>
+                        <p>У вас пока нет постов</p>
+                        <a href="/post/create">Создать первый пост</a>
+                    </div>
+                    <% } %>
+        </div>
+    </div>
+    
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Онлайн пост</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="block container top">
+        <h2>Редактировать пост</h2>
+        <form method="POST" action="/post/<%= post.id %>/edit">
+            <div>
+                <label for="title">Заголовок:</label>
+                <input type="text" id="title" name="title" value="<%= post.title %>" required>
+            </div>
+            
+            <div>
+                <label for="description">Содержание:</label>
+                <textarea id="description" name="description" rows="10" required><%= post.description %></textarea>
+            </div>
+            
+            <div>
+                <label for="imageURL">URL изображения:</label>
+                <input type="url" id="imageURL" name="imageURL" value="<%= post.imageURL || '' %>">
+            </div>
+            
+            <div class="list_btn">
+                <button class="btn" type="submit">Сохранить изменения</button>
+                <a class="btn" href="/post/<%= post.id %>">Отмена</a>
+            </div>
+        </form>  
+    </div>
+</body>
+</html>

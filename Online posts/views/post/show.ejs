@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Онлайн пост</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header>
+        <a href="/"><h1>Online Posts</h1></a>
+        <nav>
+            <a href="/user/profile">Профиль</a>
+        </nav>
+    </header>
+    <section>
+        <h2>
+            <%= post.title %>
+        </h2>
+        <% if (user && user.id===post.user_id) { %>
+            <div class="list_btn">
+                <a class="btn" href="/post/<%= post.id %>/edit">Редактировать</a>
+                <form method="POST" action="/post/<%= post.id %>/delete">
+                    <button class="btn" type="submit" onclick="return confirm('Удалить пост?')">Удалить</button>
+                </form>
+            </div>
+            <% } %>
+                <div>
+                    <strong>
+                        <%= post.User.username %>
+                    </strong>
+                    <div>
+                        Опубликовано: <%= new Date(post.created_at).toLocaleDateString('ru-RU') %> |
+                            Просмотры: <%= post.view_count %>
+                    </div>
+                </div>
+    
+                <% if (post.imageURL) { %>
+                    <img src="<%= post.imageURL %>" alt="<%= post.title %>">
+                    <% } %>
+    
+                        <div>
+                            <%= post.description.replace(/\n/g, '<br>' ) %>
+                        </div>
+    
+                        <div>
+                            <h3>Комментарии (<%= post.Comments ? post.Comments.length : 0 %>)</h3>
+    
+                            <% if (user) { %>
+                                <form method="POST" action="/comment/<%= post.id %>/create">
+                                    <div>
+                                        <textarea name="content" rows="3" placeholder="Напишите ваш комментарий..."
+                                            required></textarea>
+                                    </div>
+                                    <button class="btn" type="submit">Добавить комментарий</button>
+                                </form>
+                                <% } else { %>
+                                    <div>
+                                        <p>Чтобы оставить комментарий, <a href="/auth/login">войдите</a> или <a
+                                                href="/auth/register">зарегистрируйтесь</a></p>
+                                    </div>
+                                    <% } %>
+    
+                                        <% if (post.Comments && post.Comments.length> 0) { %>
+                                            <div>
+                                                <% post.Comments.forEach(comment=> { %>
+    
+                                                                                                       <strong>
+                                                        <%= comment.User.username %>
+                                                    </strong>
+                                                    <div>
+                                                        <%= new Date(comment.created_at).toLocaleDateString('ru-RU') %>
+                                                            <% if (user && (user.id===comment.user_id ||
+                                                                user.id===post.user_id)) { %>
+                                                                <form method="POST"
+                                                                    action="/comment/<%= comment.id %>/delete">
+                                                                    <button type="submit"
+                                                                        onclick="return confirm('Удалить комментарий?')">Удалить</button>
+                                                                </form>
+                                                                <% } %>
+                                                    </div>
+                                                    <p>
+                                                        <%= comment.content %>
+                                                    </p>
+    
+                                                    <% }) %>
+                                            </div>
+                                            <% } else { %>
+                                                <div>
+                                                    <p>Пока нет комментариев. Будьте первым!</p>
+                                                </div>
+                                                <% } %>
+                        </div>
+    </section>
+    
+</body>
+
+</html>
